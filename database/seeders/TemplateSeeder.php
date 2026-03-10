@@ -9,8 +9,10 @@ class TemplateSeeder extends Seeder
 {
     public function run(): void
     {
-        // Nettoyer les templates existants pour éviter les doublons
-        Template::query()->delete();
+        // Only seed if no templates exist yet (idempotent — safe to call on every startup)
+        if (Template::count() > 0) {
+            return;
+        }
 
         // ═══════════════════════════════════════════════════════════
         // 1. Demande d'autorisation de tournage — Président

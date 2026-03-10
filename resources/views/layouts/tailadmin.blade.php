@@ -93,8 +93,8 @@
     <script>
         (function() {
             const saved = localStorage.getItem('theme');
-            // Par défaut: mode sombre (sauf si 'light' explicitement sauvegardé)
-            if (saved !== 'light') document.documentElement.classList.add('dark');
+            // Par défaut: mode clair (sauf si 'dark' explicitement sauvegardé)
+            if (saved === 'dark') document.documentElement.classList.add('dark');
         })();
     </script>
 </head>
@@ -111,8 +111,8 @@
             setHovered(val) { if (!this.isExpanded && window.innerWidth >= 1280) this.isHovered = val; }
         });
         Alpine.store('theme', {
-            // Par défaut: mode sombre (sauf si 'light' explicitement sauvegardé)
-            mode: localStorage.getItem('theme') || 'dark',
+            // Par défaut: mode clair (sauf si 'dark' explicitement sauvegardé)
+            mode: localStorage.getItem('theme') || 'light',
             toggle() {
                 this.mode = this.mode === 'dark' ? 'light' : 'dark';
                 localStorage.setItem('theme', this.mode);

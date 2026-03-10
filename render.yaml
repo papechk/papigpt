@@ -19,10 +19,36 @@ services:
           name: papigpt
           property: host
       - key: DB_CONNECTION
-        value: sqlite
+        value: pgsql
+      - key: DB_HOST
+        fromDatabase:
+          name: papigpt-db
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: papigpt-db
+          property: port
+      - key: DB_DATABASE
+        fromDatabase:
+          name: papigpt-db
+          property: database
+      - key: DB_USERNAME
+        fromDatabase:
+          name: papigpt-db
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: papigpt-db
+          property: password
       - key: SESSION_DRIVER
-        value: file
+        value: database
       - key: CACHE_STORE
-        value: file
+        value: database
       - key: QUEUE_CONNECTION
         value: sync
+
+databases:
+  - name: papigpt-db
+    plan: free
+    databaseName: papigpt
+    user: papigpt
