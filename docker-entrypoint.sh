@@ -15,13 +15,15 @@ APP_NAME=${APP_NAME:-PapiGPT}
 APP_ENV=${APP_ENV:-production}
 APP_KEY=${APP_KEY:-}
 APP_DEBUG=${APP_DEBUG:-false}
-APP_URL=${APP_URL:-http://localhost}
+APP_URL=${RENDER_EXTERNAL_URL:-${APP_URL:-http://localhost}}
+ASSET_URL=${RENDER_EXTERNAL_URL:-${APP_URL:-}}
 DB_CONNECTION=${DB_CONNECTION:-sqlite}
 SESSION_DRIVER=${SESSION_DRIVER:-file}
 CACHE_STORE=${CACHE_STORE:-file}
 QUEUE_CONNECTION=${QUEUE_CONNECTION:-sync}
 LOG_CHANNEL=stack
 LOG_LEVEL=error
+VITE_APP_URL=${RENDER_EXTERNAL_URL:-${APP_URL:-}}
 EOF
     chown www-data:www-data /var/www/html/.env
 fi
