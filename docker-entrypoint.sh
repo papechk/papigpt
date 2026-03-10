@@ -52,5 +52,8 @@ php artisan view:clear
 # Run migrations
 php artisan migrate --force || true
 
+# Seed database
+php artisan db:seed --force || true
+
 # Start Apache
 exec apache2-foreground
