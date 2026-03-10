@@ -22,6 +22,15 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
+        // Compte principal — créé ou mis à jour à chaque démarrage
+        User::updateOrCreate(
+            ['email' => 'sidihcamara1945@gmail.com'],
+            [
+                'name' => 'Sidi Camara',
+                'password' => Hash::make('sidihcamara'),
+            ]
+        );
+
         $this->call(TemplateSeeder::class);
     }
 }
