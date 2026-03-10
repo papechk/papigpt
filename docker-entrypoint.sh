@@ -8,47 +8,49 @@ PORT=${PORT:-8080}
 sed -i "s/Listen 80$/Listen ${PORT}/g" /etc/apache2/ports.conf
 sed -i "s/:80/:${PORT}/g" /etc/apache2/sites-available/*.conf
 
-# Create .env file if it doesn't exist
-if [ ! -f /var/www/html/.env ]; then
-    cat > /var/www/html/.env << EOF
+# Create .env file from environment variables
+cat > /var/www/html/.env << EOF
 APP_NAME=${APP_NAME:-PapiGPT}
-APP_ENV=${APP_ENV:-production}
+APP_ENV=production
 APP_KEY=${APP_KEY:-}
-APP_DEBUG=${APP_DEBUG:-false}
-APP_URL=${RENDER_EXTERNAL_URL:-${APP_URL:-http://localhost}}
-ASSET_URL=${RENDER_EXTERNAL_URL:-${APP_URL:-}}
-DB_CONNECTION=${DB_CONNECTION:-sqlite}
-SESSION_DRIVER=${SESSION_DRIVER:-file}
-CACHE_STORE=${CACHE_STORE:-file}
-QUEUE_CONNECTION=${QUEUE_CONNECTION:-sync}
+APP_DEBUG=false
+APP_URL=${RENDER_EXTERNAL_URL:-https://papigpt.onrender.com}
+
+DB_CONNECTION=sqlite
+DB_DATABASE=/var/www/html/database/database.sqlite
+
+SESSION_DRIVER=file
+SESSION_LIFETIME=120
+
+CACHE_STORE=file
+QUEUE_CONNECTION=sync
+
 LOG_CHANNEL=stack
 LOG_LEVEL=error
-VITE_APP_URL=${RENDER_EXTERNAL_URL:-${APP_URL:-}}
 EOF
-    chown www-data:www-data /var/www/html/.env
-fi
+
+# Set permissions
+chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
+chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
+
+# Create SQLite database
+touch /var/www/html/database/database.sqlite
+chown www-data:www-data /var/www/html/database/database.sqlite
+chmod 664 /var/www/html/database/database.sqlite
 
 # Generate app key if not set
 if ! grep -q "APP_KEY=base64:" /var/www/html/.env; then
     php artisan key:generate --force
 fi
 
-# Create SQLite database if using sqlite and file doesn't exist
-if [ "$DB_CONNECTION" = "sqlite" ]; then
-    touch /var/www/html/database/database.sqlite
-    chown www-data:www-data /var/www/html/database/database.sqlite
-fi
+# Clear any cached config
+php artisan config:clear
+php artisan cache:clear
+php artisan route:clear
+php artisan view:clear
 
 # Run migrations
-php artisan migrate --force 2>/dev/null || true
-
-# Seed if database is empty
-php artisan db:seed --force 2>/dev/null || true
-
-# Cache for production
-php artisan config:cache
-php artisan route:cache
-php artisan view:cache
+php artisan migrate --force || true
 
 # Start Apache
 exec apache2-foreground

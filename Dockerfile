@@ -4,9 +4,9 @@ FROM php:8.2-apache
 RUN apt-get update && apt-get install -y \
     git curl zip unzip \
     libpng-dev libjpeg-dev libfreetype6-dev \
-    libonig-dev libxml2-dev libzip-dev \
+    libonig-dev libxml2-dev libzip-dev libsqlite3-dev \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install pdo_mysql gd mbstring xml bcmath zip \
+    && docker-php-ext-install pdo_mysql pdo_sqlite gd mbstring xml bcmath zip \
     && a2enmod rewrite headers \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
@@ -43,9 +43,10 @@ RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-av
 RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
 
 # Ensure storage directories exist and are writable
-RUN mkdir -p storage/logs storage/framework/sessions storage/framework/views storage/framework/cache/data \
-    && chown -R www-data:www-data storage bootstrap/cache \
-    && chmod -R 775 storage bootstrap/cache
+RUN mkdir -p storage/logs storage/framework/sessions storage/framework/views storage/framework/cache/data database \
+    && touch database/database.sqlite \
+    && chown -R www-data:www-data storage bootstrap/cache database \
+    && chmod -R 775 storage bootstrap/cache database
 
 # Create storage symlink
 RUN php artisan storage:link 2>/dev/null || true
