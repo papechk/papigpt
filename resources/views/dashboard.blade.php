@@ -11,7 +11,7 @@
     </div>
 
     <!-- Statistiques -->
-    <div class="grid grid-cols-3 gap-3">
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
         <div class="rounded-2xl border border-gray-200 dark:border-white/[0.06] bg-white dark:bg-[#161616] p-4">
             <div class="flex items-center gap-3">
                 <span class="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-subtle">
@@ -75,8 +75,8 @@
                     <thead>
                         <tr class="text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             <th class="px-6 py-3">Type</th>
-                            <th class="px-6 py-3">Client</th>
-                            <th class="px-6 py-3">Date</th>
+                            <th class="px-6 py-3">Document</th>
+                            <th class="px-6 py-3 hidden sm:table-cell">Date</th>
                             <th class="px-6 py-3 text-right">Actions</th>
                         </tr>
                     </thead>
@@ -86,8 +86,10 @@
                             <td class="px-6 py-3">
                                 <x-type-badge :type="$doc->type">{{ $doc->getTypeLabel() }}</x-type-badge>
                             </td>
-                            <td class="px-6 py-3 text-sm dark:text-gray-300">{{ $doc->client_name ?? '-' }}</td>
-                            <td class="px-6 py-3 text-sm text-gray-500">{{ $doc->created_at->format('d/m/Y H:i') }}</td>
+                            <td class="px-6 py-3 text-sm dark:text-gray-300">
+                                {{ $doc->objet ?: ($doc->client_name ?? '-') }}
+                            </td>
+                            <td class="px-6 py-3 text-sm text-gray-500 hidden sm:table-cell">{{ $doc->created_at->format('d/m/Y') }}</td>
                             <td class="px-6 py-3 text-right">
                                 <a href="{{ route('documents.show', $doc) }}" class="text-sm text-brand hover:underline">Voir</a>
                             </td>

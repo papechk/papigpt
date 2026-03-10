@@ -38,6 +38,7 @@ class PdfController extends Controller
             'contrat' => 'pdf.contrat',
             'note_officielle' => 'pdf.note_officielle',
             'page_garde' => 'pdf.page_garde',
+            default => abort(404, 'Type de document non supporté'),
         };
 
         $pdf = Pdf::loadView($view, compact('document'))
@@ -434,6 +435,7 @@ class PdfController extends Controller
             'contrat' => 'contrat',
             'note_officielle' => 'note-officielle',
             'page_garde' => 'page-garde',
+            default => 'document',
         };
 
         return $prefix . '-' . $document->id . '.' . $extension;

@@ -36,30 +36,32 @@
                 <table class="w-full">
                     <thead>
                         <tr class="text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-b border-gray-100 dark:border-white/[0.06]">
-                            <th class="px-6 py-3">#</th>
+                            <th class="px-6 py-3 hidden sm:table-cell">#</th>
                             <th class="px-6 py-3">Type</th>
-                            <th class="px-6 py-3">Client</th>
-                            <th class="px-6 py-3">Total</th>
-                            <th class="px-6 py-3">Date</th>
+                            <th class="px-6 py-3">Document</th>
+                            <th class="px-6 py-3 hidden md:table-cell">Total</th>
+                            <th class="px-6 py-3 hidden sm:table-cell">Date</th>
                             <th class="px-6 py-3 text-right">Actions</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-100 dark:divide-white/[0.06]">
                         @foreach($documents as $doc)
                         <tr class="hover:bg-gray-50 dark:hover:bg-white/[0.02]">
-                            <td class="px-6 py-3 text-sm text-gray-500">{{ $doc->id }}</td>
+                            <td class="px-6 py-3 text-sm text-gray-500 hidden sm:table-cell">{{ $doc->id }}</td>
                             <td class="px-6 py-3">
                                 <x-type-badge :type="$doc->type">{{ $doc->getTypeLabel() }}</x-type-badge>
                             </td>
-                            <td class="px-6 py-3 text-sm dark:text-gray-300">{{ $doc->client_name ?? '-' }}</td>
                             <td class="px-6 py-3 text-sm dark:text-gray-300">
+                                {{ $doc->objet ?: ($doc->client_name ?? '-') }}
+                            </td>
+                            <td class="px-6 py-3 text-sm dark:text-gray-300 hidden md:table-cell">
                                 @if(in_array($doc->type, ['invoice_proforma', 'invoice_final']))
                                     {{ number_format($doc->total, 0, ',', ' ') }} FCFA
                                 @else
                                     -
                                 @endif
                             </td>
-                            <td class="px-6 py-3 text-sm text-gray-500">{{ $doc->created_at->format('d/m/Y H:i') }}</td>
+                            <td class="px-6 py-3 text-sm text-gray-500 hidden sm:table-cell">{{ $doc->created_at->format('d/m/Y') }}</td>
                             <td class="px-6 py-3 text-right">
                                 <div class="flex items-center justify-end gap-2">
                                     <a href="{{ route('documents.show', $doc) }}" class="text-sm text-brand hover:underline">Voir</a>
