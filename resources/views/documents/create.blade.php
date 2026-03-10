@@ -367,6 +367,31 @@
                 <p class="text-xs text-gray-500 dark:text-gray-400">Choisissez l'apparence visuelle de votre lettre.</p>
 
                 <div class="grid grid-cols-2 sm:grid-cols-5 gap-3">
+                    {{-- Classique (défaut) --}}
+                    <button type="button" @click="selectedDesign = 'classique'"
+                            :class="selectedDesign === 'classique' ? 'ring-2 ring-brand border-brand' : 'border-gray-200 dark:border-white/[0.08] hover:border-gray-300'"
+                            class="relative rounded-xl border bg-white dark:bg-[#0C0C0C] overflow-hidden transition-all p-0">
+                        <div class="aspect-[210/160] relative overflow-hidden">
+                            <div class="pt-2 pb-1 px-3 text-center border-b" style="border-color: #C8A41540">
+                                <div class="w-3 h-3 mx-auto rounded-full bg-gray-200"></div>
+                                <div class="text-[4px] font-bold text-gray-600 mt-0.5">SST</div>
+                            </div>
+                            <div class="px-3 pt-1.5 space-y-0.5">
+                                <div class="h-0.5 w-8 rounded-full bg-gray-200 ml-auto"></div>
+                                <div class="h-0.5 w-6 rounded-full" style="background: #C8A41560"></div>
+                                <div class="h-0.5 w-full rounded-full bg-gray-200 mt-1"></div>
+                                <div class="h-0.5 w-full rounded-full bg-gray-200"></div>
+                                <div class="h-0.5 w-3/4 rounded-full bg-gray-200"></div>
+                            </div>
+                        </div>
+                        <div class="px-2 py-1.5 text-center border-t border-gray-100 dark:border-white/[0.06]">
+                            <span class="text-[10px] font-semibold" :class="selectedDesign === 'classique' ? 'text-brand' : 'text-gray-600 dark:text-gray-400'">Classique</span>
+                        </div>
+                        <div x-show="selectedDesign === 'classique'" class="absolute top-1 right-1 w-4 h-4 rounded-full bg-brand flex items-center justify-center">
+                            <svg class="w-2.5 h-2.5 text-[#0C0C0C]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                        </div>
+                    </button>
+
                     {{-- Simple --}}
                     <button type="button" @click="selectedDesign = 'simple'"
                             :class="selectedDesign === 'simple' ? 'ring-2 ring-brand border-brand' : 'border-gray-200 dark:border-white/[0.08] hover:border-gray-300'"
@@ -388,31 +413,6 @@
                             <span class="text-[10px] font-semibold" :class="selectedDesign === 'simple' ? 'text-brand' : 'text-gray-600 dark:text-gray-400'">Simple</span>
                         </div>
                         <div x-show="selectedDesign === 'simple'" class="absolute top-1 right-1 w-4 h-4 rounded-full bg-brand flex items-center justify-center">
-                            <svg class="w-2.5 h-2.5 text-[#0C0C0C]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
-                        </div>
-                    </button>
-
-                    {{-- Classique --}}
-                    <button type="button" @click="selectedDesign = 'classique'"
-                            :class="selectedDesign === 'classique' ? 'ring-2 ring-brand border-brand' : 'border-gray-200 dark:border-white/[0.08] hover:border-gray-300'"
-                            class="relative rounded-xl border bg-white dark:bg-[#0C0C0C] overflow-hidden transition-all p-0">
-                        <div class="aspect-[210/160] relative overflow-hidden">
-                            <div class="pt-2 pb-1 px-3 text-center border-b" style="border-color: #C8A41540">
-                                <div class="w-3 h-3 mx-auto rounded-full bg-gray-200"></div>
-                                <div class="text-[4px] font-bold text-gray-600 mt-0.5">SST</div>
-                            </div>
-                            <div class="px-3 pt-1.5 space-y-0.5">
-                                <div class="h-0.5 w-8 rounded-full bg-gray-200 ml-auto"></div>
-                                <div class="h-0.5 w-6 rounded-full" style="background: #C8A41560"></div>
-                                <div class="h-0.5 w-full rounded-full bg-gray-200 mt-1"></div>
-                                <div class="h-0.5 w-full rounded-full bg-gray-200"></div>
-                                <div class="h-0.5 w-3/4 rounded-full bg-gray-200"></div>
-                            </div>
-                        </div>
-                        <div class="px-2 py-1.5 text-center border-t border-gray-100 dark:border-white/[0.06]">
-                            <span class="text-[10px] font-semibold" :class="selectedDesign === 'classique' ? 'text-brand' : 'text-gray-600 dark:text-gray-400'">Classique</span>
-                        </div>
-                        <div x-show="selectedDesign === 'classique'" class="absolute top-1 right-1 w-4 h-4 rounded-full bg-brand flex items-center justify-center">
                             <svg class="w-2.5 h-2.5 text-[#0C0C0C]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
                         </div>
                     </button>
@@ -809,6 +809,31 @@
                 <p class="text-xs text-gray-500 dark:text-gray-400">Choisissez l'apparence visuelle de votre document.</p>
 
                 <div class="grid grid-cols-2 sm:grid-cols-5 gap-3">
+                    {{-- Classique (défaut) --}}
+                    <button type="button" @click="selectedDesign = 'classique'"
+                            :class="selectedDesign === 'classique' ? 'ring-2 ring-brand border-brand' : 'border-gray-200 dark:border-white/[0.08] hover:border-gray-300'"
+                            class="relative rounded-xl border bg-white dark:bg-[#0C0C0C] overflow-hidden transition-all p-0">
+                        <div class="aspect-[210/160] relative overflow-hidden">
+                            <div class="pt-2 pb-1 px-3 text-center border-b" style="border-color: #C8A41540">
+                                <div class="w-3 h-3 mx-auto rounded-full bg-gray-200"></div>
+                                <div class="text-[4px] font-bold text-gray-600 mt-0.5">SST</div>
+                            </div>
+                            <div class="px-3 pt-1.5 space-y-0.5">
+                                <div class="h-0.5 w-8 rounded-full bg-gray-200 ml-auto"></div>
+                                <div class="h-0.5 w-6 rounded-full" style="background: #C8A41560"></div>
+                                <div class="h-0.5 w-full rounded-full bg-gray-200 mt-1"></div>
+                                <div class="h-0.5 w-full rounded-full bg-gray-200"></div>
+                                <div class="h-0.5 w-3/4 rounded-full bg-gray-200"></div>
+                            </div>
+                        </div>
+                        <div class="px-2 py-1.5 text-center border-t border-gray-100 dark:border-white/[0.06]">
+                            <span class="text-[10px] font-semibold" :class="selectedDesign === 'classique' ? 'text-brand' : 'text-gray-600 dark:text-gray-400'">Classique</span>
+                        </div>
+                        <div x-show="selectedDesign === 'classique'" class="absolute top-1 right-1 w-4 h-4 rounded-full bg-brand flex items-center justify-center">
+                            <svg class="w-2.5 h-2.5 text-[#0C0C0C]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                        </div>
+                    </button>
+
                     {{-- Simple --}}
                     <button type="button" @click="selectedDesign = 'simple'"
                             :class="selectedDesign === 'simple' ? 'ring-2 ring-brand border-brand' : 'border-gray-200 dark:border-white/[0.08] hover:border-gray-300'"
@@ -830,31 +855,6 @@
                             <span class="text-[10px] font-semibold" :class="selectedDesign === 'simple' ? 'text-brand' : 'text-gray-600 dark:text-gray-400'">Simple</span>
                         </div>
                         <div x-show="selectedDesign === 'simple'" class="absolute top-1 right-1 w-4 h-4 rounded-full bg-brand flex items-center justify-center">
-                            <svg class="w-2.5 h-2.5 text-[#0C0C0C]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
-                        </div>
-                    </button>
-
-                    {{-- Classique --}}
-                    <button type="button" @click="selectedDesign = 'classique'"
-                            :class="selectedDesign === 'classique' ? 'ring-2 ring-brand border-brand' : 'border-gray-200 dark:border-white/[0.08] hover:border-gray-300'"
-                            class="relative rounded-xl border bg-white dark:bg-[#0C0C0C] overflow-hidden transition-all p-0">
-                        <div class="aspect-[210/160] relative overflow-hidden">
-                            <div class="pt-2 pb-1 px-3 text-center border-b" style="border-color: #C8A41540">
-                                <div class="w-3 h-3 mx-auto rounded-full bg-gray-200"></div>
-                                <div class="text-[4px] font-bold text-gray-600 mt-0.5">SST</div>
-                            </div>
-                            <div class="px-3 pt-1.5 space-y-0.5">
-                                <div class="h-0.5 w-8 rounded-full bg-gray-200 ml-auto"></div>
-                                <div class="h-0.5 w-6 rounded-full" style="background: #C8A41560"></div>
-                                <div class="h-0.5 w-full rounded-full bg-gray-200 mt-1"></div>
-                                <div class="h-0.5 w-full rounded-full bg-gray-200"></div>
-                                <div class="h-0.5 w-3/4 rounded-full bg-gray-200"></div>
-                            </div>
-                        </div>
-                        <div class="px-2 py-1.5 text-center border-t border-gray-100 dark:border-white/[0.06]">
-                            <span class="text-[10px] font-semibold" :class="selectedDesign === 'classique' ? 'text-brand' : 'text-gray-600 dark:text-gray-400'">Classique</span>
-                        </div>
-                        <div x-show="selectedDesign === 'classique'" class="absolute top-1 right-1 w-4 h-4 rounded-full bg-brand flex items-center justify-center">
                             <svg class="w-2.5 h-2.5 text-[#0C0C0C]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
                         </div>
                     </button>
