@@ -13,6 +13,12 @@ if [ -z "$APP_KEY" ]; then
     php artisan key:generate --force
 fi
 
+# Create SQLite database if using sqlite and file doesn't exist
+if [ "$DB_CONNECTION" = "sqlite" ]; then
+    touch /var/www/html/database/database.sqlite
+    chown www-data:www-data /var/www/html/database/database.sqlite
+fi
+
 # Run migrations
 php artisan migrate --force 2>/dev/null || true
 
