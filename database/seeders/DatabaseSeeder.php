@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
     {
         // Create admin user if not exists
         User::firstOrCreate(
-            ['email' => 'admin@papigpt.local'],
+            ['email' => 'admin@example.com'],
             [
                 'name' => 'Admin',
                 'password' => Hash::make('password'),
